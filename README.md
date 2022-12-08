@@ -1,6 +1,61 @@
 ### 232. Implement Queue using Stacks
 
+#### Two stacks
+```
+var MyQueue = function() {
+    this.arr1 = []
+    this.arr2 = []
+};
 
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+MyQueue.prototype.push = function(x) {
+    this.arr1.push(x)
+};
+
+/**
+ * @return {number}
+ */
+MyQueue.prototype.pop = function() {
+    const { arr1, arr2 } = this
+
+    if (arr2.length === 0) {
+        while(arr1.length > 0) {
+            arr2.push(arr1.pop())
+        }
+    }
+
+   return arr2.pop()
+};
+
+/**
+ * @return {number}
+ */
+MyQueue.prototype.peek = function() {
+    const { arr1, arr2 } = this
+
+    if (arr2.length === 0) {
+        while(arr1.length > 0) {
+            arr2.push(arr1.pop())
+        }
+    }
+
+   return arr2[arr2.length - 1]
+};
+
+/**
+ * @return {boolean}
+ */
+MyQueue.prototype.empty = function() {
+    const { arr1, arr2 } = this
+    
+    return arr1.length === 0 && arr2.length === 0
+};
+```
+
+#### With array meth
 ```
 var MyQueue = function() {
     this.queue = []
